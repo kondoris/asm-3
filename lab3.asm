@@ -44,7 +44,7 @@ inputMas proc
     ret                           
 endp     
 
-inputArrayLength proc near
+inputArrayLength proc
     mov cx, 1           
     inputArrayLengthLoop:
        call ShowInputArrayLengthMsg
