@@ -189,7 +189,7 @@ badNum:
     jmp inputElementBuff                            
 endp
      
-input proc near
+input proc 
     mov ah,0Ah
     int 21h
     ret
@@ -237,7 +237,7 @@ ShowInputMsg proc
     ret                           
 endp                        
 
-MakeNormal proc near
+MakeNormal proc 
     xor cx,cx
     xor di,di
     xor si,si
@@ -321,7 +321,7 @@ MakeNormal proc near
     ret    
 endp
     
-makeMainPart proc near
+makeMainPart proc 
     push dx
     push cx
     push bx
