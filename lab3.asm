@@ -25,7 +25,7 @@ minus                       db  0
 Temp                        dw  0
 Array                       dw  MaxArrayLength dup (0)  
 ArraySum                    dw 0
-                                
+cleared                     db 0                                
                               
 .code      
 
@@ -84,7 +84,7 @@ endp
 
 
 
-resetNumBuffer proc
+resetNumBuffer proc 
     add ArraySum,ax  
     push ax
     mov ax,ArraySum
@@ -151,8 +151,13 @@ inputElementBuff proc
     mov minus,0
     
     
-    finish: 
-    call resetNumBuffer                        
+    finish:       
+    
+    cmp cleared,0
+    jne resetNumBuffer  
+    mov NumBuffer,0
+    mov cleared,1  
+                          
     ret 
 doSub:
     sub ax,bx
@@ -239,9 +244,8 @@ MakeNormal proc near
     xor ax,ax
     xor dx,dx
     
-    make:
+    make:                  
         mov ax,ArrayLength  
-        sbb ArraySum,ax
         mov Temp,ax
         mov minus,0
         xor dx,dx
@@ -404,4 +408,4 @@ output proc
     dec cl                
     ret                           
 endp                                 
-end	start                         
+end	start      
