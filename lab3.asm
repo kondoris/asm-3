@@ -179,22 +179,49 @@ sumArray proc
     adc di,2
     loop sumArray   
     
-NumbtoStr proc   
+NumbtoStr proc    
+    xor cx,cx
     mov ax,TempArraySum
     idiv ArrayLength 
-    lea di,Asnwer
+    lea di,Asnwer 
+    Divpart:  
+        add cx,1      
+        push bx 
+        mov bx,ax  
+        push dx  
     
-    Divpart:     
-        push bx  
-        push dx
-        mov bx,ax   
+        DivWis:  
+        mov ax,bx 
         cmp ax,9
-        idiv ten
-        jg Divpart  
-        mov [di],ax
+        jg Divpartt
+        
+        Divv:   
+        sub ax,'0'
+        imul ten
+        sub bx,ax
+        mov ax,bx
+        OverDiv:     
+        
+        add ax,'0'
+        mov [di],ax 
+        add di,1  
+        pop bx
+        pop dx
+    
+        loop Divv    
+        output nextStr
         output Asnwer
         call endProgram
-                                        
+    Divpartt: 
+    
+        add cx,1 
+        idiv ten
+        cmp ax,9       
+        push bx
+        mov bx,ax 
+        jg Divpart
+        jmp OverDiv 
+                                           
 endProgram proc
     mov ax,4C00h
     int 21h
